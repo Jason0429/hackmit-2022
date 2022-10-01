@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_disrupt_app/utils/constants.dart';
+import 'package:project/utils/constants.dart';
 
 class SnackbarService {
   static final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =

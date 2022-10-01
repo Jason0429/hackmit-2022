@@ -1,4 +1,4 @@
-import 'package:flutter_disrupt_app/utils/constants.dart';
+import 'package:project/utils/constants.dart';
 
 class NavigationService {
   static final _navigationKey = GlobalKeys.navigatorKey;

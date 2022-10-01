@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_disrupt_app/services/auth_service.dart';
-import 'package:flutter_disrupt_app/services/navigation_service.dart';
-import 'package:flutter_disrupt_app/services/snackbar_service.dart';
-import 'package:flutter_disrupt_app/types/extensions/string.dart';
-import 'package:flutter_disrupt_app/utils/constants.dart';
+import 'package:project/services/auth_service.dart';
+import 'package:project/services/navigation_service.dart';
+import 'package:project/services/snackbar_service.dart';
+import 'package:project/types/extensions/string.dart';
+import 'package:project/utils/routes.dart';
 
 class LoginViewModel {
   String? validateEmail(String? email) {
