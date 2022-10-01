@@ -18,7 +18,7 @@ class LoginScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: const [
-          DisruptLogo(),
+          RecycleLogo(),
           SizedBox(height: 40),
           LoginForm(),
         ],
@@ -27,8 +27,8 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class DisruptLogo extends StatelessWidget {
-  const DisruptLogo({super.key});
+class RecycleLogo extends StatelessWidget {
+  const RecycleLogo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class DisruptLogo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image(
-          image: AssetImage(ImagePaths.disruptLogo),
+          image: AssetImage(ImagePaths.recycleLogo),
           width: 200,
         ),
       ],
