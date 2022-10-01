@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:project/screens/displaypicture_screen.dart';
+import 'package:project/widgets/screen_starter.dart';
 
 // A screen that allows users to take a picture using a given camera.
 class CameraScreen extends StatefulWidget {
@@ -54,17 +55,19 @@ class CameraScreenState extends State<CameraScreen> {
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
-      body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // If the Future is complete, display the preview.
-            return CameraPreview(_controller);
-          } else {
-            // Otherwise, display a loading indicator.
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+      body: ScreenStarter(
+        child: FutureBuilder<void>(
+          future: _initializeControllerFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              // If the Future is complete, display the preview.
+              return CameraPreview(_controller);
+            } else {
+              // Otherwise, display a loading indicator.
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         // Provide an onPressed callback.
