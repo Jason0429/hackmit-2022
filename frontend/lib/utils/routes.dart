@@ -15,7 +15,7 @@ class Routes {
     RouteNames.main: (_) => MainScreen(),
     RouteNames.profile: (_) => ProfileScreen(),
     RouteNames.activites: (_) => ActivitiesScreen(),
-    RouteNames.camera: (_) => CameraScreen(camera: CameraViewModel().getCamera()),
+    RouteNames.camera: (_) => CameraScreen(),
     RouteNames.leaderboard: (_) => LeaderboardScreen(),
   };
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project/services/navigation_service.dart';
 import 'package:project/utils/constants.dart';
 import 'package:project/utils/routes.dart';
-import 'package:project/utils/theme.dart';
 import 'package:project/view_models/login_viewmodel.dart';
 import 'package:project/widgets/round_button.dart';
 import 'package:project/widgets/screen_starter.dart';

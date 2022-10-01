@@ -3,8 +3,6 @@ import 'package:project/screens/activities_screen.dart';
 import 'package:project/screens/camera_screen.dart';
 import 'package:project/screens/leaderboard_screen.dart';
 import 'package:project/screens/profile_screen.dart';
-import 'package:project/view_models/camera_viewmodel.dart';
-import 'package:camera/camera.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -15,13 +13,8 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
-  final List<Widget> _tabScreens = [
-    ProfileScreen(),
-    // CameraScreen(camera: CameraViewModel().getCamera()),
-    CameraScreen(),
-    ActivitiesScreen(),
-    LeaderboardScreen(),
-  ];
+  final _items = _BottomTabs.tabs.map((i) => i.keys.first).toList();
+  final _screens = _BottomTabs.tabs.map((i) => i.values.first).toList();
 
   void _onTabTapped(int index) {
     setState(() {
@@ -32,54 +25,62 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: _tabScreens.length,
+      length: _screens.length,
       child: Scaffold(
-        body: _tabScreens.elementAt(_selectedIndex),
+        body: _screens.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
-          items: _BottomNavigationBarItems.items,
+          items: _items,
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.grey,
           onTap: _onTabTapped,
-          // backgroundColor: const Color(0xFF121f1f),
           backgroundColor: Colors.blueGrey[900],
           elevation: 0,
+          type: BottomNavigationBarType.fixed,
         ),
       ),
     );
   }
 }
 
-class _BottomNavigationBarItems {
+class _BottomTabs {
   static const _iconSize = 20.0;
-  static const items = <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-      icon: Icon(
-        Icons.person,
-        size: _iconSize,
-      ),
-      label: 'Profile',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(
-        Icons.camera,
-        size: _iconSize,
-      ),
-      label: 'Camera',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(
-        Icons.camera,
-        size: _iconSize,
-      ),
-      label: 'Activities',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(
-        Icons.camera,
-        size: _iconSize,
-      ),
-      label: 'Leaderboard',
-    ),
+  static const tabs = [
+    {
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.person,
+          size: _iconSize,
+        ),
+        label: 'Profile',
+      ): ProfileScreen(),
+    },
+    {
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.camera_alt,
+          size: _iconSize,
+        ),
+        label: 'Camera',
+      ): CameraScreen(),
+    },
+    {
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.list,
+          size: _iconSize,
+        ),
+        label: 'Activities',
+      ): ActivitiesScreen(),
+    },
+    {
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.leaderboard,
+          size: _iconSize,
+        ),
+        label: 'Leaderboard',
+      ): LeaderboardScreen(),
+    },
   ];
 }

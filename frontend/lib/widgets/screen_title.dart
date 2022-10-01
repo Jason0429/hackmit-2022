@@ -14,7 +14,7 @@ class ScreenTitle extends StatelessWidget {
       child: Row(
         children: [
           Image(
-            image: AssetImage(ImagePaths.dots),
+            image: AssetImage(ImagePaths.recycleLogo),
             height: StyleConstants.titleFontSize,
           ),
           const SizedBox(width: 10),
