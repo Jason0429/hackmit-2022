@@ -39,6 +39,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _usernameController = TextEditingController();
   bool _isPasswordVisible = false;
   final _loginVM = LoginViewModel();
   final _registerVM = RegisterViewModel();
@@ -55,7 +56,18 @@ class _RegisterFormState extends State<RegisterForm> {
       key: _formKey,
       child: Column(
         children: [
-          DisruptTextField(
+          RecycleTextField(
+            controller: _usernameController,
+            hintText: "Username",
+            keyboardType: TextInputType.text,
+            prefixIcon: const Icon(Icons.person),
+            // validator: (confirmPass) => _registerVM.validateConfirmPassword(
+            //   confirmPass,
+            //   _passwordController.text,
+            // ),
+          ),
+          const SizedBox(height: 10),
+          RecycleTextField(
             controller: _emailController,
             hintText: "Email",
             prefixIcon: const Icon(Icons.email),
@@ -63,7 +75,7 @@ class _RegisterFormState extends State<RegisterForm> {
             keyboardType: TextInputType.emailAddress,
           ),
           const SizedBox(height: 10),
-          DisruptTextField(
+          RecycleTextField(
             controller: _passwordController,
             hintText: "Password",
             validator: (password) => _loginVM.validatePassword(password),
@@ -80,7 +92,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           const SizedBox(height: 10),
-          DisruptTextField(
+          RecycleTextField(
             controller: _confirmPasswordController,
             hintText: "Confirm Password",
             keyboardType: TextInputType.visiblePassword,

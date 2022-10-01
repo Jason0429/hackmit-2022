@@ -70,7 +70,7 @@ class _LoginFormState extends State<LoginForm> {
       key: _formKey,
       child: Column(
         children: [
-          DisruptTextField(
+          RecycleTextField(
             controller: _emailController,
             hintText: "Email",
             prefixIcon: const Icon(Icons.email),
@@ -78,7 +78,7 @@ class _LoginFormState extends State<LoginForm> {
             keyboardType: TextInputType.emailAddress,
           ),
           const SizedBox(height: 10),
-          DisruptTextField(
+          RecycleTextField(
             controller: _passwordController,
             hintText: "Password",
             validator: (password) => _vm.validatePassword(password),
@@ -105,8 +105,8 @@ class _LoginFormState extends State<LoginForm> {
               );
             },
             text: "Log in",
-            backgroundColor: const Color(DisruptTheme.PRIMARY_COLOR),
-            textColor: Colors.black,
+            backgroundColor: Colors.blueGrey[900]!,
+            textColor: Colors.white,
           ),
           const SizedBox(height: 40),
           const Text("Don't have an account?"),

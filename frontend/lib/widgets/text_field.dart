@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/utils/styles.dart';
 
-class DisruptTextField extends StatelessWidget {
+class RecycleTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final String? Function(String?)? validator;
@@ -10,7 +10,7 @@ class DisruptTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
 
-  const DisruptTextField({
+  const RecycleTextField({
     super.key,
     this.validator,
     this.prefixIcon,
