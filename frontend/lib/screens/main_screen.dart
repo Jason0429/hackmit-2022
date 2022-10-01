@@ -6,7 +6,6 @@ import 'package:project/screens/profile_screen.dart';
 import 'package:project/view_models/camera_viewmodel.dart';
 import 'package:camera/camera.dart';
 
-
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -15,12 +14,11 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  
-
   int _selectedIndex = 0;
   final List<Widget> _tabScreens = [
     ProfileScreen(),
-    CameraScreen(camera: CameraViewModel().getCamera()),
+    // CameraScreen(camera: CameraViewModel().getCamera()),
+    CameraScreen(),
     ActivitiesScreen(),
     LeaderboardScreen(),
   ];
@@ -64,17 +62,24 @@ class _BottomNavigationBarItems {
     ),
     BottomNavigationBarItem(
       icon: Icon(
-        Icons.menu_book,
+        Icons.camera,
         size: _iconSize,
       ),
-      label: 'Lessons',
+      label: 'Camera',
     ),
     BottomNavigationBarItem(
       icon: Icon(
-        Icons.event,
+        Icons.camera,
         size: _iconSize,
       ),
-      label: 'Events',
+      label: 'Activities',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.camera,
+        size: _iconSize,
+      ),
+      label: 'Leaderboard',
     ),
   ];
 }
