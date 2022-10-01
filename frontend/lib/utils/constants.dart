@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ImagePaths {
-  static final disruptLogo = "assets/images/logo.png";
+  static final recycleLogo = "assets/images/recbin.png";
   static final dots = "assets/images/dots.png";
 }
 

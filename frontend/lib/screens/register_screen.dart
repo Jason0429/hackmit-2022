@@ -18,7 +18,7 @@ class RegisterScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: const [
-          DisruptLogo(),
+          RecycleLogo(),
           SizedBox(height: 40),
           RegisterForm(),
         ],
