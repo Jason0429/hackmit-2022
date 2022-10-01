@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "541548131487",
+    "project_id": "hackmit-2022",
+    "storage_bucket": "hackmit-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541548131487:android:ee26c8845560f1ce461eaa",
+        "android_client_info": {
+          "package_name": "com.example.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "541548131487-sj9ent8riv57t130ip1lhv7v7uj3aeim.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0ND5xAcuzMhXDWsQQp7-qh90BZB2iwZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "541548131487-sj9ent8riv57t130ip1lhv7v7uj3aeim.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
