@@ -56,8 +56,8 @@ class _RecycleApp extends StatelessWidget {
         ),
         scaffoldMessengerKey: GlobalKeys.scaffoldMessengerKey,
         navigatorKey: GlobalKeys.navigatorKey,
-        initialRoute: RouteNames.main,
-        // initialRoute: authUser == null ? RouteNames.login : RouteNames.main,
+        // initialRoute: RouteNames.main,
+        initialRoute: authUser == null ? RouteNames.login : RouteNames.main,
         routes: Routes.routes,
       ),
     );

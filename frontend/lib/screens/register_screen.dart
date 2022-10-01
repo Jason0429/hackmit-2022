@@ -35,18 +35,27 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+  bool _isUsernameAvailable = true;
+  bool _isPasswordVisible = false;
+
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _usernameController = TextEditingController();
-  bool _isPasswordVisible = false;
+
   final _loginVM = LoginViewModel();
   final _registerVM = RegisterViewModel();
 
   void _togglePasswordVisibility() {
     setState(() {
       _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
+
+  void _setIsUsernameAvailable(bool value) {
+    setState(() {
+      _isUsernameAvailable = value;
     });
   }
 
@@ -61,10 +70,8 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: "Username",
             keyboardType: TextInputType.text,
             prefixIcon: const Icon(Icons.person),
-            // validator: (confirmPass) => _registerVM.validateConfirmPassword(
-            //   confirmPass,
-            //   _passwordController.text,
-            // ),
+            validator: (_) =>
+                _isUsernameAvailable ? null : "Username is not available",
           ),
           const SizedBox(height: 10),
           RecycleTextField(
@@ -105,17 +112,23 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           const SizedBox(height: 40),
           DisruptButton(
-            onPressed: () {
-              String email = _emailController.text.trim();
-              String password = _passwordController.text;
-              _loginVM.validateThen(
-                _formKey,
-                () => _registerVM.handleRegister(email, password),
-              );
-            },
             text: "Register",
             backgroundColor: Colors.blueGrey[900]!,
             textColor: Colors.white,
+            onPressed: () async {
+              String username = _usernameController.text.trim();
+              String email = _emailController.text.trim();
+              String password = _passwordController.text;
+
+              final available = await _registerVM.isUsernameAvailable(username);
+
+              debugPrint("Username available: $available");
+
+              _setIsUsernameAvailable(available);
+
+              _loginVM.validateThen(_formKey,
+                  () => _registerVM.handleRegister(username, email, password));
+            },
           ),
           const SizedBox(height: 40),
           const Text("Already have an account?"),

@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project/services/auth_service.dart';
@@ -8,8 +9,8 @@ import 'package:project/utils/routes.dart';
 
 class LoginViewModel {
   String? validateEmail(String? email) {
-    if (email == null || email.isEmpty || !email.isNortheasternEmail) {
-      return "Please enter a Northeastern email";
+    if (email == null || email.isEmpty || !EmailValidator.validate(email)) {
+      return "Please enter a valid email";
     }
     return null;
   }

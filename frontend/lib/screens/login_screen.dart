@@ -36,7 +36,7 @@ class RecycleLogo extends StatelessWidget {
       children: [
         Image(
           image: AssetImage(ImagePaths.recycleLogo),
-          width: 200,
+          height: 100,
         ),
       ],
     );
