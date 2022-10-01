@@ -6,6 +6,7 @@ import 'package:project/screens/login_screen.dart';
 import 'package:project/screens/main_screen.dart';
 import 'package:project/screens/profile_screen.dart';
 import 'package:project/screens/register_screen.dart';
+import 'package:project/view_models/camera_viewmodel.dart';
 
 class Routes {
   static final Map<String, Widget Function(BuildContext)> routes = {
@@ -14,7 +15,7 @@ class Routes {
     RouteNames.main: (_) => MainScreen(),
     RouteNames.profile: (_) => ProfileScreen(),
     RouteNames.activites: (_) => ActivitiesScreen(),
-    RouteNames.camera: (_) => CameraScreen(),
+    RouteNames.camera: (_) => CameraScreen(camera: CameraViewModel().getCamera()),
     RouteNames.leaderboard: (_) => LeaderboardScreen(),
   };
 }
