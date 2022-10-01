@@ -1,5 +1,3 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:project/view_models/camera_viewmodel.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +5,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:project/screens/displaypicture_screen.dart';
 
-
 // A screen that allows users to take a picture using a given camera.
 class CameraScreen extends StatefulWidget {
   const CameraScreen({
     super.key,
-    required this.camera,
   });
-
-  final Future<CameraDescription> camera;
 
   @override
   CameraScreenState createState() => CameraScreenState();
@@ -26,14 +20,17 @@ class CameraScreenState extends State<CameraScreen> {
   late Future<void> _initializeControllerFuture;
 
   @override
-  void initState() async{
-    final camera = await widget.camera;
+  void initState() {
     super.initState();
     // To display the current output from the Camera,
     // create a CameraController.
     _controller = CameraController(
       // Get a specific camera from the list of available cameras.
-      camera,
+      CameraDescription(
+        name: "camera",
+        lensDirection: CameraLensDirection.front,
+        sensorOrientation: 0,
+      ),
       // Define the resolution to use.
       ResolutionPreset.medium,
     );
@@ -104,4 +101,3 @@ class CameraScreenState extends State<CameraScreen> {
     );
   }
 }
-
