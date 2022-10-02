@@ -11,7 +11,6 @@ Activity _$ActivityFromJson(Map<String, dynamic> json) => Activity(
       imageUrl: json['imageUrl'] as String,
       itemName: json['itemName'] as String,
       recycled: json['recycled'] as bool,
-      weight: (json['weight'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$ActivityToJson(Activity instance) => <String, dynamic>{
@@ -19,5 +18,4 @@ Map<String, dynamic> _$ActivityToJson(Activity instance) => <String, dynamic>{
       'imageUrl': instance.imageUrl,
       'itemName': instance.itemName,
       'recycled': instance.recycled,
-      'weight': instance.weight,
     };

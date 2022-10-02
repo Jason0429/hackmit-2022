@@ -1,19 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/models/activity.dart';
 
 import '../models/app_user.dart';
 
 class FirestoreService {
   static final _firestore = FirebaseFirestore.instance;
-  // static AppUser? user;
 
-  static Stream<AppUser> userStream(String uid) {
-    return _firestore
-        .collection("users")
-        .doc(uid)
-        .snapshots()
-        .map((d) => AppUser.fromJson(d.data()!));
+  // static Future<AppUser> user(String uid) async {
+  //   final doc = await _firestore.collection("users").doc(uid).get();
+  //   return AppUser.fromJson(doc.data()!);
+  // }
+
+  static Stream<AppUser> userStream(String uid) =>
+      _firestore.collection("users").doc(uid).snapshots().map((d) {
+        final data = d.data();
+
+        if (data == null) {
+          throw Exception("User is not in firestore");
+        }
+
+        return AppUser.fromJson(data);
+      });
+
+  static Stream<Iterable<Activity>> activitiesStream(String uid) => _firestore
+      .collection("users/$uid/activities")
+      .snapshots()
+      .map((q) => q.docs.map((d) => Activity.fromJson(d.data())));
+
+  /// Add activity to recents
+  static Future<void> addActivity(Activity activity) {
+    return Future.value();
   }
 
   // Future<FirestoreService> updateUser() async {

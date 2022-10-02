@@ -8,7 +8,7 @@ class AppUser {
   final String username;
   final String email;
   final List<String> friends;
-  final double totalItemsRecycled;
+  final int totalItemsRecycled;
 
   AppUser({
     required this.uid,

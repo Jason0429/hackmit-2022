@@ -46,6 +46,7 @@ dependencies:
   path: ^1.8.2
   email_validator: ^2.1.17
   firebase_storage: ^10.3.10
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:

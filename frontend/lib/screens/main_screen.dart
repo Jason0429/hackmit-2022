@@ -5,7 +5,6 @@ import 'package:project/screens/leaderboard_screen.dart';
 import 'package:project/screens/profile_screen.dart';
 import 'package:camera/camera.dart';
 
-
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -26,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return      DefaultTabController(
+    return DefaultTabController(
       length: _screens.length,
       child: Scaffold(
         body: _screens.elementAt(_selectedIndex),
@@ -47,7 +46,7 @@ class _MainScreenState extends State<MainScreen> {
 
 class _BottomTabs {
   static const _iconSize = 20.0;
-  static const tabs = [
+  static final tabs = [
     {
       BottomNavigationBarItem(
         icon: Icon(
