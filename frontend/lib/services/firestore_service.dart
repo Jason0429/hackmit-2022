@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project/services/auth_service.dart';
 
 import '../models/app_user.dart';
 
-class FirestoreService with ChangeNotifier {
+class FirestoreService {
   static final _firestore = FirebaseFirestore.instance;
   // static AppUser? user;
 
