@@ -13,14 +13,12 @@ class ApiService {
         body: jsonEncode({"uri": imageUrl}),
       );
 
-      // print("Res: ${res.body}");
+      print("Res: ${res.body}");
       return GoogleVisionResponse.fromJson(jsonDecode(res.body));
     } catch (e) {
       print(e);
       return null;
     }
-
-    // return GoogleVisionResponse.fromJson(jsonDecode(res.body));
   }
 
   static Future<RecycleResponse?> getRecycleResponse(String item) async {

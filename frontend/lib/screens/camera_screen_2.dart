@@ -142,60 +142,6 @@ class CameraScreenState extends State<CameraScreen> {
                     imageUrl: downloadUrl,
                   );
                 });
-
-            // if (downloadUrl == null) {
-            //   debugPrint("Cannot create download url for image");
-            // } else {
-            //   debugPrint("Loading google vision...");
-            // final gvsRes = await ApiService.getGoogleVision(downloadUrl);
-
-            // Check if gvsRes is null
-            // If so, show no results
-            // Else, load recycle res
-            // Add to recents
-            // then show drawer (NOT ABLE TO SWIPE DOWN)
-            // Item name
-            // Category
-            // How to Recycle
-            // Button: I recycled (exit)
-            // Exit button (exit)
-            // Resume camera
-
-            // if (gvsRes == null) {
-            //   debugPrint("Something went wrong");
-            // } else {
-            //   gvsRes.objects.forEach((element) {
-            //     print(json.encode(element.toJson()));
-            //   });
-
-            //   if (gvsRes.objects.isNotEmpty) {
-            //     print("SOMETHING IS HAPPENINIG>>>");
-            //     final recycleRes = await ApiService.getRecycleResponse(
-            //         gvsRes.objects.first.name);
-
-            //     if (recycleRes == null) {
-            //       print("Recycle null");
-            //     } else {
-            //       print("Recycle res: ${json.encode(recycleRes.toJson())}");
-            //     }
-            //   }
-            // }
-            // }
-
-            // // If the picture was taken, display it on a new screen.
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (context) => DisplayPictureScreen(
-            //       // Pass the automatically generated path to
-            //       // the DisplayPictureScreen widget.
-            //       imagePath: image.path,
-            //     ),
-            //   ),
-            // );
-            // } catch (e) {
-            //   // If an error occurs, log the error to the console.
-            //   print(e);
-            // }
           },
           child: const Icon(Icons.camera_alt),
         ),

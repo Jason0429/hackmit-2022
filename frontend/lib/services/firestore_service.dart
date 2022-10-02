@@ -26,12 +26,16 @@ class FirestoreService {
 
   static Stream<Iterable<Activity>> activitiesStream(String uid) => _firestore
       .collection("users/$uid/activities")
+      .orderBy("createdOn", descending: true)
       .snapshots()
       .map((q) => q.docs.map((d) => Activity.fromJson(d.data())));
 
   /// Add activity to recents
-  static Future<void> addActivity(Activity activity) {
-    return Future.value();
+  static Future<void> addActivity(String uid, Activity activity) async {
+    await _firestore.collection("users/$uid/activities").doc(activity.id).set(
+          activity.toJson(),
+          SetOptions(merge: true),
+        );
   }
 
   // Future<FirestoreService> updateUser() async {
