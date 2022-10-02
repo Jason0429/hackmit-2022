@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/screens/activities_screen.dart';
-import 'package:project/screens/camera_screen.dart';
+import 'package:project/screens/camera_screen_1.dart';
 import 'package:project/screens/leaderboard_screen.dart';
 import 'package:project/screens/login_screen.dart';
 import 'package:project/screens/main_screen.dart';
@@ -15,7 +15,7 @@ class Routes {
     RouteNames.main: (_) => MainScreen(),
     RouteNames.profile: (_) => ProfileScreen(),
     RouteNames.activites: (_) => ActivitiesScreen(),
-    RouteNames.camera: (_) => CameraScreen(),
+    RouteNames.camera: (_) => CameraPromptScreen(),
     RouteNames.leaderboard: (_) => LeaderboardScreen(),
   };
 }

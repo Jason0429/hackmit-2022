@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project/screens/activities_screen.dart';
-import 'package:project/screens/camera_screen.dart';
+import 'package:project/screens/camera_screen_1.dart';
 import 'package:project/screens/leaderboard_screen.dart';
 import 'package:project/screens/profile_screen.dart';
+import 'package:camera/camera.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -12,7 +14,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   final _items = _BottomTabs.tabs.map((i) => i.keys.first).toList();
   final _screens = _BottomTabs.tabs.map((i) => i.values.first).toList();
 
@@ -24,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return      DefaultTabController(
       length: _screens.length,
       child: Scaffold(
         body: _screens.elementAt(_selectedIndex),
@@ -62,7 +64,7 @@ class _BottomTabs {
           size: _iconSize,
         ),
         label: 'Camera',
-      ): CameraScreen(),
+      ): CameraPromptScreen(),
     },
     {
       BottomNavigationBarItem(
