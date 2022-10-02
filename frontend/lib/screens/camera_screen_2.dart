@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io' as io;
+import 'dart:io';
 import 'package:project/services/api_service.dart';
 import 'package:project/widgets/recycling_sheet.dart';
 import 'package:uuid/uuid.dart';
@@ -22,6 +23,7 @@ class CameraScreen extends StatefulWidget {
 class CameraScreenState extends State<CameraScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+  late String _takenImagePath;
   bool _showCameraButton = true;
 
   @override
@@ -67,13 +69,24 @@ class CameraScreenState extends State<CameraScreen> {
           future: _initializeControllerFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              // final size = MediaQuery.of(context).size;
-              // final deviceRatio = size.width / size.height;
+              final size = MediaQuery.of(context).size;
+              final deviceRatio = size.width / size.height;
               // // If the Future is complete, display the preview.
-              return Transform.scale(
-                scale: _controller.value.aspectRatio,
-                child: CameraPreview(_controller),
-              );
+              if (_showCameraButton) {
+                return Transform.scale(
+                  scale: _controller.value.aspectRatio,
+                  child: CameraPreview(_controller),
+                );
+              } else {
+                return ScreenStarter(
+                  child: Center(
+                    child: Image.file(
+                      File(_takenImagePath),
+                    ),
+                  ),
+                );
+              }
+
               // return CameraPreview(_controller);
             } else {
               // Otherwise, display a loading indicator.
@@ -93,84 +106,96 @@ class CameraScreenState extends State<CameraScreen> {
           onPressed: () async {
             // Take the Picture in a try / catch block. If anything goes wrong,
             // catch the error.
-            try {
-              // Ensure that the camera is initialized.
-              await _initializeControllerFuture;
+            // try {
+            // Ensure that the camera is initialized.
+            await _initializeControllerFuture;
 
-              // Attempt to take a picture and get the file `image`
-              // where it was saved.
-              final image = await _controller.takePicture();
-              await _controller.pausePreview();
-              _setShowCameraButton(false);
+            // Attempt to take a picture and get the file `image`
+            // where it was saved.
+            final image = await _controller.takePicture();
+            final imagePath = image.path;
+            await _controller.pausePreview();
+            _takenImagePath = imagePath;
+            _setShowCameraButton(false);
 
-              if (!mounted) return;
+            if (!mounted) return;
 
-              // Upload image to storage
-              const uuid = Uuid();
-              final imagePath = image.path;
-              final imageName = "${uuid.v1()}${path.extension(imagePath)}";
-              final downloadUrl = await StorageService.uploadImage(
-                  io.File(imagePath), imageName);
+            // Upload image to storage
+            const uuid = Uuid();
+            final imageName = "${uuid.v1()}${path.extension(imagePath)}";
+            final downloadUrl =
+                await StorageService.uploadImage(io.File(imagePath), imageName);
 
-              showModalBottomSheet(
-                  context: context,
-                  builder: (_) {
-                    return RecyclingSheet();
-                  });
-
-              if (downloadUrl == null) {
-                debugPrint("Cannot create download url for image");
-              } else {
-                debugPrint("Loading google vision...");
-                final gvsRes = await ApiService.getGoogleVision(downloadUrl);
-
-                // Check if gvsRes is null
-                // If so, show no results
-                // Else, load recycle res
-                // Add to recents
-                // then show drawer (NOT ABLE TO SWIPE DOWN)
-                // Item name
-                // Category
-                // How to Recycle
-                // Button: I recycled (exit)
-                // Exit button (exit)
-                // Resume camera
-
-                if (gvsRes == null) {
-                  debugPrint("Something went wrong");
-                } else {
-                  gvsRes.objects.forEach((element) {
-                    print(json.encode(element.toJson()));
-                  });
-
-                  if (gvsRes.objects.isNotEmpty) {
-                    print("SOMETHING IS HAPPENINIG>>>");
-                    final recycleRes = await ApiService.getRecycleResponse(
-                        gvsRes.objects.first.name);
-
-                    if (recycleRes == null) {
-                      print("Recycle null");
-                    } else {
-                      print("Recycle res: ${json.encode(recycleRes.toJson())}");
-                    }
-                  }
-                }
-              }
-
-              // // If the picture was taken, display it on a new screen.
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) => DisplayPictureScreen(
-              //       // Pass the automatically generated path to
-              //       // the DisplayPictureScreen widget.
-              //       imagePath: image.path,
-              //     ),
-              //   ),
-              // );
-            } catch (e) {
-              // If an error occurs, log the error to the console.
-              print(e);
+            void onClose(BuildContext context) async {
+              Navigator.of(context).pop();
+              await _controller.resumePreview();
+              _setShowCameraButton(true);
             }
+
+            showModalBottomSheet(
+                context: context,
+                enableDrag: false,
+                isDismissible: false,
+                builder: (_) {
+                  return RecyclingSheet(
+                    onClose: () => onClose(context),
+                    imageUrl: downloadUrl,
+                  );
+                });
+
+            // if (downloadUrl == null) {
+            //   debugPrint("Cannot create download url for image");
+            // } else {
+            //   debugPrint("Loading google vision...");
+            // final gvsRes = await ApiService.getGoogleVision(downloadUrl);
+
+            // Check if gvsRes is null
+            // If so, show no results
+            // Else, load recycle res
+            // Add to recents
+            // then show drawer (NOT ABLE TO SWIPE DOWN)
+            // Item name
+            // Category
+            // How to Recycle
+            // Button: I recycled (exit)
+            // Exit button (exit)
+            // Resume camera
+
+            // if (gvsRes == null) {
+            //   debugPrint("Something went wrong");
+            // } else {
+            //   gvsRes.objects.forEach((element) {
+            //     print(json.encode(element.toJson()));
+            //   });
+
+            //   if (gvsRes.objects.isNotEmpty) {
+            //     print("SOMETHING IS HAPPENINIG>>>");
+            //     final recycleRes = await ApiService.getRecycleResponse(
+            //         gvsRes.objects.first.name);
+
+            //     if (recycleRes == null) {
+            //       print("Recycle null");
+            //     } else {
+            //       print("Recycle res: ${json.encode(recycleRes.toJson())}");
+            //     }
+            //   }
+            // }
+            // }
+
+            // // If the picture was taken, display it on a new screen.
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(
+            //     builder: (context) => DisplayPictureScreen(
+            //       // Pass the automatically generated path to
+            //       // the DisplayPictureScreen widget.
+            //       imagePath: image.path,
+            //     ),
+            //   ),
+            // );
+            // } catch (e) {
+            //   // If an error occurs, log the error to the console.
+            //   print(e);
+            // }
           },
           child: const Icon(Icons.camera_alt),
         ),
