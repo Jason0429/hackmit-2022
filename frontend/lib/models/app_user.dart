@@ -8,14 +8,14 @@ class AppUser {
   final String username;
   final String email;
   final List<String> friends;
-  final double totalRecycledWeight;
+  final double totalItemsRecycled;
 
   AppUser({
     required this.uid,
     required this.username,
     required this.email,
     required this.friends,
-    required this.totalRecycledWeight,
+    required this.totalItemsRecycled,
   });
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>

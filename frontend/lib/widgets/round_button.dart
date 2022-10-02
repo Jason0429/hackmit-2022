@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:project/utils/theme.dart';
 
-class DisruptButton extends StatelessWidget {
+class RecycleButton extends StatelessWidget {
   final void Function()? onPressed;
   final String text;
   final Color backgroundColor;
   final Color textColor;
 
-  const DisruptButton({
+  const RecycleButton({
     super.key,
     required this.onPressed,
     required this.text,
