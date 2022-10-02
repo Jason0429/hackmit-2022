@@ -164,9 +164,7 @@ class RecycleInfo extends StatelessWidget {
               Text(data.instruction),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  // Set recycled of this activity to true
-                },
+                onPressed: () => onClose(),
                 child: Text("I recycled"),
               ),
             ],

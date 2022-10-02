@@ -24,6 +24,12 @@ class FirestoreService {
         return AppUser.fromJson(data);
       });
 
+  static Stream<Iterable<AppUser>> usersStream() => _firestore
+      .collection("users")
+      .orderBy("totalItemsRecycled", descending: true)
+      .snapshots()
+      .map((q) => q.docs.map((d) => AppUser.fromJson(d.data())));
+
   static Stream<Iterable<Activity>> activitiesStream(String uid) => _firestore
       .collection("users/$uid/activities")
       .orderBy("createdOn", descending: true)
@@ -32,12 +38,17 @@ class FirestoreService {
 
   /// Add activity to recents
   static Future<void> addActivity(String uid, Activity activity) async {
+    final prev = await _firestore.collection("users").doc(uid).get();
+    final prevUser = AppUser.fromJson(prev.data()!);
+    await _firestore
+        .collection("users")
+        .doc(uid)
+        .update({'totalItemsRecycled': prevUser.totalItemsRecycled + 1});
     await _firestore.collection("users/$uid/activities").doc(activity.id).set(
           activity.toJson(),
           SetOptions(merge: true),
         );
   }
-
   // Future<FirestoreService> updateUser() async {
   //   final auth = AuthService.currentUser;
 
