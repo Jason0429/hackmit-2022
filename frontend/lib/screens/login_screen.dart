@@ -38,6 +38,7 @@ class RecycleLogo extends StatelessWidget {
           image: AssetImage(ImagePaths.recycleLogo),
           height: 100,
         ),
+        Text("RecyclablesAI"),
       ],
     );
   }
