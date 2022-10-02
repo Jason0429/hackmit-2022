@@ -12,7 +12,7 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
       email: json['email'] as String,
       friends:
           (json['friends'] as List<dynamic>).map((e) => e as String).toList(),
-      totalRecycledWeight: (json['totalRecycledWeight'] as num).toDouble(),
+      totalItemsRecycled: (json['totalItemsRecycled'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
@@ -20,5 +20,5 @@ Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
       'username': instance.username,
       'email': instance.email,
       'friends': instance.friends,
-      'totalRecycledWeight': instance.totalRecycledWeight,
+      'totalItemsRecycled': instance.totalItemsRecycled,
     };

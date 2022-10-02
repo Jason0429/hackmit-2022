@@ -2,16 +2,23 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class AuthService {
+class AuthService with ChangeNotifier {
   static final _auth = FirebaseAuth.instance;
 
-  static FirebaseAuth get auth => _auth;
+  static User? user;
 
-  static bool get isUserSignedIn => _auth.currentUser != null;
+  static FirebaseAuth get auth => _auth;
 
   static User? get currentUser => _auth.currentUser;
 
   static Stream<User?> get onAuthStateChanged => _auth.authStateChanges();
+
+  AuthService() {
+    _auth.authStateChanges().listen((state) {
+      user = state;
+      notifyListeners();
+    });
+  }
 
   /// Authenticates user via email and password.
   /// Returns error if something went wrong.

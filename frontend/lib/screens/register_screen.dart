@@ -111,7 +111,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           const SizedBox(height: 40),
-          DisruptButton(
+          RecycleButton(
             text: "Register",
             backgroundColor: Colors.blueGrey[900]!,
             textColor: Colors.white,

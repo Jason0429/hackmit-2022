@@ -51,26 +51,8 @@ class RegisterViewModel {
       return;
     }
 
-    String err;
-
-    switch (registerErrorMsg) {
-      case "email-already-in-use":
-        err = "There already exists an account with the given email address.";
-        break;
-      case "invalid-email":
-        err = "Email address is not valid.";
-        break;
-      case "operation-not-allowed":
-        err =
-            "Email/Password accounts are not enabled. Please contact administrator.";
-        break;
-      case "weak-password":
-        err = "Password is not strong enough.";
-        break;
-      default:
-        err = "Something went wrong.";
-        break;
-    }
+    // If registration failed
+    String err = _getRegisterErrorMessage(registerErrorMsg);
 
     debugPrint("Register error: $err");
 
@@ -78,5 +60,20 @@ class RegisterViewModel {
       text: err,
       backgroundColor: Colors.redAccent,
     );
+  }
+
+  String _getRegisterErrorMessage(String errCode) {
+    switch (errCode) {
+      case "email-already-in-use":
+        return "There already exists an account with the given email address.";
+      case "invalid-email":
+        return "Email address is not valid.";
+      case "operation-not-allowed":
+        return "Email/Password accounts are not enabled. Please contact administrator.";
+      case "weak-password":
+        return "Password is not strong enough.";
+      default:
+        return "Something went wrong.";
+    }
   }
 }

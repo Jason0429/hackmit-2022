@@ -94,7 +94,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           const SizedBox(height: 40),
-          DisruptButton(
+          RecycleButton(
             onPressed: () {
               String email = _emailController.text.trim();
               String password = _passwordController.text;

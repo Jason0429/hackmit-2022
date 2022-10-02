@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:project/services/auth_service.dart';
 import 'package:project/services/navigation_service.dart';
 import 'package:project/services/snackbar_service.dart';
-import 'package:project/types/extensions/string.dart';
 import 'package:project/utils/routes.dart';
 
 class LoginViewModel {
@@ -39,29 +38,15 @@ class LoginViewModel {
         await AuthService.signInWithEmailAndPassword(email, password);
 
     if (loginErrMsg == null) {
+      SnackbarService.showSnackbar(
+        text: "Signed in successfully",
+        backgroundColor: Colors.green,
+      );
       NavigationService.pushReplacementNamed(RouteNames.main);
       return;
     }
 
-    String err = "";
-
-    switch (loginErrMsg) {
-      case "invalid-email":
-        err = "Email address is not valid";
-        break;
-      case "user-disabled":
-        err = "The user corresponding to the given email has been disabled.";
-        break;
-      case "user-not-found":
-        err = "There is no user corresponding to the given email.";
-        break;
-      case "wrong-password":
-        err = "Password is invalid for the given email.";
-        break;
-      default:
-        err = "Something went wrong.";
-        break;
-    }
+    String err = _getLoginErrMessage(loginErrMsg);
 
     debugPrint("Login error: $err");
 
@@ -69,5 +54,20 @@ class LoginViewModel {
       text: err,
       backgroundColor: Colors.redAccent,
     );
+  }
+
+  String _getLoginErrMessage(String errCode) {
+    switch (errCode) {
+      case "invalid-email":
+        return "Email address is not valid";
+      case "user-disabled":
+        return "The user corresponding to the given email has been disabled.";
+      case "user-not-found":
+        return "There is no user corresponding to the given email.";
+      case "wrong-password":
+        return "Password is invalid for the given email.";
+      default:
+        return "Something went wrong.";
+    }
   }
 }
